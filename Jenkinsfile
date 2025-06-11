@@ -1,11 +1,18 @@
 pipeline{
     agent any
     
-    triggers {
-        githubPush()
-    }
-    
     stages {
+        stage('Checkout') {
+            steps {
+                // Fazer checkout do código do Git
+                checkout scm
+                
+                // Debug: mostrar arquivos
+                sh 'ls -la'
+                sh 'ls -la backend/'
+            }
+        }
+        
         stage('Build Docker Image') {
             steps {
                 script {
@@ -34,7 +41,6 @@ pipeline{
                     withKubeConfig([credentialsId: 'kubeconfig']) {
                         sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/deployment.yaml'
                         sh 'kubectl apply -f k8s/deployment.yaml'
-                        sh 'kubectl apply -f k8s/service.yaml'
                     }
                 }
             }
@@ -57,10 +63,6 @@ pipeline{
             echo '❌ Build falhou, mas Chuck Norris nunca desiste!'
             echo '🔍 Chuck Norris está investigando o problema...'
             echo '💡 Verifique: Docker build, DockerHub push ou Kubernetes deploy'
-        }
-        
-        unstable {
-            echo '⚠️ Build instável - Chuck Norris está monitorando'
         }
     }
 }
