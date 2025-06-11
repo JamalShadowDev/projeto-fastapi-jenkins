@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+  labels:
+    app: fastapi-app
+    project: compassuol-devops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    spec:
+      containers:
+      - name: fastapi-app
+        image: jamalshadowdev/fastapi-jenkins:{{tag}}
+        ports:
+        - containerPort: 8000
+        
+        livenessProbe:
+          httpGet:
+            path: /time
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+  labels:
+    app: fastapi-app
+spec:
+  selector:
+    app: fastapi-app
+  ports:
+  - port: 80
+    targetPort: 8000
+    nodePort: 30001
+  type: NodePort
