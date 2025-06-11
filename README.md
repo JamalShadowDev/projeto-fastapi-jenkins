@@ -5,23 +5,23 @@
 
 ## 📋 Sobre o Projeto
 
-Este projeto tem como objetivo ensinar na prática os conceitos de **CI/CD** utilizando tecnologias modernas de DevOps. Desenvolvemos uma esteira de automação completa que realiza o deploy automatizado de uma aplicação FastAPI em um cluster Kubernetes local.
+Este projeto implementa uma **pipeline CI/CD completa** utilizando tecnologias modernas de DevOps. Desenvolvemos uma esteira de automação que realiza o deploy automatizado de uma aplicação FastAPI em um cluster Kubernetes local.
 
 ### 🎯 Objetivos de Aprendizado
-- Implementar pipeline CI/CD com Jenkins
-- Containerização com Docker
-- Deploy automatizado no Kubernetes
-- Integração com GitHub e Docker Hub
-- Práticas de DevSecOps
+- ✅ Implementar pipeline CI/CD com Jenkins
+- ✅ Containerização com Docker
+- ✅ Deploy automatizado no Kubernetes
+- ✅ Integração com GitHub e Docker Hub
+- ✅ Práticas de DevSecOps
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
 - **Python 3.9+** - Backend API
-- **FastAPI** - Framework Web
+- **FastAPI** - Framework Web  
 - **Docker** - Containerização
-- **Kubernetes** - Orquestração de containers
+- **Kubernetes** - Orquestração de containers (Kind)
 - **Jenkins** - CI/CD Pipeline
 - **GitHub** - Versionamento de código
 - **Docker Hub** - Registro de imagens
@@ -31,53 +31,44 @@ Este projeto tem como objetivo ensinar na prática os conceitos de **CI/CD** uti
 ## 📁 Estrutura do Projeto
 
 ```
-projeto-devops-fastapi-jenkins/
+projeto-fastapi-jenkins/
 ├── 📂 backend/                 # API FastAPI
 │   ├── 🐍 main.py             # Código principal da API
 │   ├── 📦 requirements.txt    # Dependências Python
-│   └── 🐳 Dockerfile          # Imagem Docker
-├── 📂 frontend/               # Frontend (em desenvolvimento)
-├── 📂 docs/                   # Documentação
-├── 📂 k8s/                    # Manifests Kubernetes (será criado)
-├── 📄 README.md               # Este arquivo
-└── 📄 .gitignore             # Arquivos ignorados pelo Git
+│   └── 🐳 Dockerfile          # Imagem Docker otimizada
+├── 📂 k8s/                    # Manifests Kubernetes
+│   └── 📄 deployment.yaml    # Deployment + Service
+├── 📄 Jenkinsfile            # Pipeline CI/CD
+├── 📄 README.md              # Este arquivo
+└── 📄 .gitignore            # Arquivos ignorados pelo Git
 ```
 
 ---
 
 ## 🚀 API FastAPI - Endpoints Disponíveis
 
-A API possui **6 endpoints** funcionais para demonstração:
+A API possui **6 endpoints** funcionais fornecidos pelos instrutores:
 
 ### 📚 Documentação Interativa
 ```
 GET /docs
 ```
-Interface Swagger para testar todos os endpoints
+Interface Swagger para testar todos os endpoints - **Acessível em produção!**
 
 ### 🎨 Endpoints da API
 
 - **GET /color** - Retorna cor hexadecimal aleatória
-  - Resposta: `{"color": "#FF5733"}`
-
 - **GET /cat** - URL de imagem de gato aleatória  
-  - Resposta: `{"cat_image_url": "https://..."}`
-
 - **GET /random-photo** - URL de foto aleatória (Picsum)
-  - Resposta: `{"random_photo_url": "https://..."}`
-
 - **GET /time** - Horário atual do servidor
-  - Resposta: `{"current_time": "2025-06-10 15:30:45"}`
-
 - **GET /scare** - URL de GIF de susto
-  - Resposta: `{"scare_image_url": "https://..."}`
-
 - **GET /lookalike** - URL de avatar aleatório
-  - Resposta: `{"lookalike_image_url": "https://..."}`
+
+**🌐 Aplicação em Produção**: `http://localhost:30001/docs`
 
 ---
 
-## 🏗️ Roadmap do Projeto
+## 🏗️ Status do Projeto
 
 ### ✅ Fase 1: Preparação do Projeto (CONCLUÍDA)
 - [x] Repositório GitHub criado
@@ -86,52 +77,46 @@ Interface Swagger para testar todos os endpoints
 - [x] Branches `main` (produção) e `dev` (desenvolvimento) criadas
 - [x] Todos os endpoints testados e funcionais
 
-### 🔄 Fase 2: Conteinerização com Docker (EM ANDAMENTO)
-- [ ] Dockerfile criado e testado
-- [ ] Build da imagem Docker local
-- [ ] Push da imagem para Docker Hub
-- [ ] Testes de container funcionando
+### ✅ Fase 2: Containerização com Docker (CONCLUÍDA)
+- [x] Dockerfile otimizado com usuário não-root
+- [x] Build da imagem Docker local
+- [x] Push da imagem para Docker Hub (`jamalshadowdev/fastapi-jenkins`)
+- [x] Testes de container funcionando
+- [x] Health checks implementados
 
-### ⏳ Fase 3: Deploy no Kubernetes
-- [ ] Manifests de Deployment criados
-- [ ] Service do Kubernetes configurado
-- [ ] Aplicação exposta via NodePort
-- [ ] Testes no cluster local
+### ✅ Fase 3: Deploy no Kubernetes (CONCLUÍDA)
+- [x] Manifests de Deployment criados (2 réplicas)
+- [x] Service do Kubernetes configurado (NodePort 30001)
+- [x] Aplicação exposta via NodePort funcionando
+- [x] Testes no cluster local (Kind) aprovados
 
-### ⏳ Fase 4: Pipeline Jenkins - Build & Push
-- [ ] Pipeline Jenkins configurada
-- [ ] Stage de build implementado
-- [ ] Stage de push para Docker Hub
-- [ ] Trigger automático via webhook GitHub
+### ✅ Fase 4: Pipeline Jenkins - Build & Push (CONCLUÍDA)
+- [x] Pipeline Jenkins configurada
+- [x] Stage de build implementado
+- [x] Stage de push para Docker Hub
+- [x] Versionamento automático com BUILD_ID
 
-### ⏳ Fase 5: Pipeline Jenkins - Deploy
-- [ ] Jenkins com acesso ao kubectl
-- [ ] Stage de deploy no Kubernetes
-- [ ] Pipeline completa funcionando
-- [ ] Testes end-to-end
+### ✅ Fase 5: Pipeline Jenkins - Deploy (CONCLUÍDA)
+- [x] Jenkins com acesso ao kubectl
+- [x] Stage de deploy no Kubernetes
+- [x] Pipeline completa funcionando
+- [x] Deploy automatizado em produção
 
-### ⏳ Fase 6: Documentação Final
-- [ ] README completo com screenshots
-- [ ] Documentação de reprodução
-- [ ] Prints da pipeline funcionando
-- [ ] Apresentação final
+### 🔄 Fase 6: Documentação & Webhook (EM ANDAMENTO)
+- [x] README atualizado com status
+- [ ] Screenshots da pipeline funcionando
+- [ ] Webhook GitHub + ngrok
+- [ ] Documentação de reprodução completa
 
 ---
 
-## 🚦 Como Executar Localmente
+## 🚦 Como Executar 
 
-### Pré-requisitos
-- Python 3.9+
-- Docker
-- Kubernetes local (Kind/Minikube/Docker Desktop)
-- Git
-
-### 🐍 Executar com Python
-
+### 🐍 **Desenvolvimento Local**
 ```bash
 # 1. Clonar repositório
-git clone https://github.com/SEU_USERNAME/projeto-devops-fastapi-jenkins.git
-cd projeto-devops-fastapi-jenkins
+git clone https://github.com/JamalShadowDev/projeto-fastapi-jenkins.git
+cd projeto-fastapi-jenkins
 
 # 2. Navegar para backend
 cd backend
@@ -143,44 +128,40 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-**Acesse**: `http://localhost:8000/docs`
-
-### 🐳 Executar com Docker
-
+### 🐳 **Container Local**
 ```bash
-# 1. Build da imagem
-cd backend
-docker build -t fastapi-app .
+# Pull da imagem do Docker Hub
+docker pull jamalshadowdev/fastapi-jenkins:latest
 
-# 2. Executar container
-docker run -p 8000:8000 fastapi-app
+# Executar container
+docker run -p 8000:8000 jamalshadowdev/fastapi-jenkins:latest
 ```
-
-**Acesse**: `http://localhost:8000/docs`
 
 ---
 
-## 🧪 Testes Realizados
+## 🎯 **Pipeline CI/CD Funcionando**
 
-### ✅ Testes Locais Concluídos
-
-```bash
-# Logs de sucesso dos endpoints testados:
-INFO: 127.0.0.1:50116 - "GET /time HTTP/1.1" 200 OK
-INFO: 127.0.0.1:50117 - "GET /docs HTTP/1.1" 200 OK
-INFO: 127.0.0.1:50120 - "GET /color HTTP/1.1" 200 OK
-INFO: 127.0.0.1:50135 - "GET /cat HTTP/1.1" 200 OK
-INFO: 127.0.0.1:50137 - "GET /random-photo HTTP/1.1" 200 OK
-INFO: 127.0.0.1:50153 - "GET /scare HTTP/1.1" 200 OK
-INFO: 127.0.0.1:50154 - "GET /lookalike HTTP/1.1" 200 OK
+### 🔄 **Fluxo Automático:**
+```
+GitHub Push → Jenkins → Docker Build → Docker Hub → Kubernetes Deploy
 ```
 
-**Status**: ✅ Todos os endpoints funcionando perfeitamente!
+### 📊 **Status Atual:**
+- ✅ **Jenkins**: Pipeline funcionando (Build #13+)
+- ✅ **Docker Hub**: `jamalshadowdev/fastapi-jenkins` (múltiplas versões)
+- ✅ **Kubernetes**: 2 pods rodando com health checks
+- ✅ **Aplicação**: Acessível via `localhost:30001`
 
 ---
 
-## 🎯 Desafios Extras (Planejados)
+## 🎯 Próximos Passos
 
+### 🌐 **Webhook Automático**
+- [ ] Configuração ngrok
+- [ ] Webhook GitHub → Jenkins
+- [ ] Pipeline 100% automática
+
+### ⭐ **Desafios Extras (CompassUOL)**
 - [ ] **Scanner de Vulnerabilidades**: Integração com Trivy
 - [ ] **Notificações**: Webhook Slack/Discord para deploys
 - [ ] **Análise SAST**: Integração com SonarQube
@@ -188,10 +169,17 @@ INFO: 127.0.0.1:50154 - "GET /lookalike HTTP/1.1" 200 OK
 
 ---
 
-## 👥 Desenvolvido por
+## 👥 **Créditos**
 
+### 📚 **Código Base da API:**
+Fornecido pelos instrutores da **CompassUOL** como parte do programa de estágio DevSecOps.
+
+### 🚀 **Implementações DevOps:**
 **Marcos (Jamal)** - Estagiário DevSecOps na CompassUOL  
-Curso: Análise e Desenvolvimento de Sistemas + Técnico em Automação Industrial
+- Pipeline CI/CD completa
+- Containerização otimizada
+- Deploy automatizado Kubernetes
+- Práticas de segurança DevSecOps
 
 ---
 
@@ -203,8 +191,8 @@ Este projeto está licenciado sob a **MIT License** - sinta-se livre para usar, 
 
 <div align="center">
 
-**🚀 Projeto em desenvolvimento - Acompanhe o progresso! 🚀**
+**🚀 PIPELINE CI/CD FUNCIONANDO EM PRODUÇÃO! 🚀**
 
-Status: Fase 1 Concluída | Pipeline: Em Desenvolvimento | Docker: Ready
+Status: ✅ Todas as 5 Fases Concluídas | 🌐 App: localhost:30001 | 💪 Chuck Norris Approved
 
 </div>
