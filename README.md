@@ -196,5 +196,3 @@ Este projeto está licenciado sob a **MIT License** - sinta-se livre para usar, 
 Status: ✅ Todas as 5 Fases Concluídas | 🌐 App: localhost:30001 | 💪 Chuck Norris Approved
 
 </div>
-
-# Teste webhook automatico
