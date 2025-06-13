@@ -1,10 +1,18 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 
 WORKDIR /app
 
 COPY requirements.txt .
+
+RUN pip install --no-cache-dir --upgrade pip setuptools>=78.1.1
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .

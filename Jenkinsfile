@@ -179,18 +179,18 @@ Chuck Norris não permite HIGH vulnerabilities! 🥋🛡️
         failure {
             echo '❌ Build falhou, mas Chuck Norris nunca desiste!'
             echo '🔍 Chuck Norris está investigando o problema...'
-            echo '💡 Verifique: Docker build, DockerHub push ou Kubernetes deploy'
+            echo '💡 Verifique: Docker build, DockerHub push, Security scan ou Kubernetes deploy'
 
             script {
-                sh """"
+                sh """
                 curl -H "Content-Type: application/json" -X POST -d '{
                     "embeds": [{
-                        "title": "❌ Deploy Failed/Blocked",
-                        "description": "**Build #${BUILD_ID}** failed!\\n\\n❌ **Possível causa**: Security vulnerabilities\\n🔗 **Logs**: [Build #${BUILD_ID}](${BUILD_URL})\\n\\n🛡️ Chuck Norris protects production!",
+                        "title": "🚨 Deploy Failed/Blocked!",
+                        "description": "**Build #${BUILD_ID}** failed!\\n\\n❌ **Possível causa**: Security vulnerabilities or build failure\\n🔗 **Logs**: [Build #${BUILD_ID}](${BUILD_URL})\\n\\n🛡️ Chuck Norris protects production!",
                         "color": 16711680,
                         "timestamp": "\$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
                     }]
-                }' https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D       
+                }' https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D
                 """
             }
         }
