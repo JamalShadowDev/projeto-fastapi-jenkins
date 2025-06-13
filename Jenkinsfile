@@ -163,16 +163,16 @@ Chuck Norris não permite HIGH vulnerabilities! 🥋🛡️
             echo "🌐 Aplicação disponível via Kind cluster"
 
             script {
-                sh '''
-                curl -H "Content-Type: application/json" -X POST -d "{
-                    \\"embeds\\": [{
-                        \\"title\\": \\"🚀 Secure Deploy Successful!\\",
-                        \\"description\\": \\"**Build #''' + env.BUILD_ID + '''** passou no Security Quality Gate!\\\\n\\\\n🌐 **App**: http://localhost:30001/docs\\\\n🔒 **Security**: Alpine + Trivy scan passed\\\\n✅ **Status**: Deploy autorizado\\\\n\\\\n🛡️ Chuck Norris approved this secure deploy!\\",
-                        \\"color\\": 65280,
-                        \\"timestamp\\": \\"''' + new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") + '\\"
+                sh """
+                curl -H "Content-Type: application/json" -X POST -d '{
+                    "embeds": [{
+                        "title": "🚀 Secure Deploy Successful!",
+                        "description": "**Build #${BUILD_ID}** passou no Security Quality Gate!\\n\\n🌐 **App**: http://localhost:30001/docs\\n🔒 **Security**: Alpine + Trivy scan passed\\n✅ **Status**: Deploy autorizado\\n\\n🛡️ Chuck Norris approved this secure deploy!",
+                        "color": 65280,
+                        "timestamp": "\$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
                     }]
-                }" https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D
-                '''
+                }' https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D
+                """
             }
         }
         
@@ -182,16 +182,16 @@ Chuck Norris não permite HIGH vulnerabilities! 🥋🛡️
             echo '💡 Verifique: Docker build, DockerHub push, Security scan ou Kubernetes deploy'
 
             script {
-                sh '''
-                curl -H "Content-Type: application/json" -X POST -d "{
-                    \\"embeds\\": [{
-                        \\"title\\": \\"🚨 Deploy Failed/Blocked!\\",
-                        \\"description\\": \\"**Build #''' + env.BUILD_ID + '''** failed!\\\\n\\\\n❌ **Possível causa**: Security vulnerabilities or build failure\\\\n🔗 **Logs**: [Build #''' + env.BUILD_ID + '''](''' + env.BUILD_URL + ''')\\\\n\\\\n🛡️ Chuck Norris protects production!\\",
-                        \\"color\\": 16711680,
-                        \\"timestamp\\": \\"''' + new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") + '\\"
+                sh """
+                curl -H "Content-Type: application/json" -X POST -d '{
+                    "embeds": [{
+                        "title": "🚨 Deploy Failed/Blocked!",
+                        "description": "**Build #${BUILD_ID}** failed!\\n\\n❌ **Possível causa**: Security vulnerabilities or build failure\\n🔗 **Logs**: [Build #${BUILD_ID}](${BUILD_URL})\\n\\n🛡️ Chuck Norris protects production!",
+                        "color": 16711680,
+                        "timestamp": "\$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
                     }]
-                }" https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D
-                '''
+                }' https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D
+                """
             }
         }
     }
