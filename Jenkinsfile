@@ -32,6 +32,14 @@ pipeline{
             }
         }
 
+        stage('Test Failure') {
+            steps {
+                script {
+                    sh 'exit 1' //Força "erro"
+                }
+             }
+        }
+
         stage('Security Scan - Trivy') {
             steps {
                 script {
@@ -167,7 +175,7 @@ Chuck Norris não permite HIGH vulnerabilities! 🥋🛡️
                 curl -H "Content-Type: application/json" -X POST -d '{
                     "embeds": [{
                         "title": "🚀 Secure Deploy Successful!",
-                        "description": "**Build #'"${BUILD_ID}"'** passou no Security Quality Gate!\\n\\n🌐 **App**: http://localhost:30001/docs\\n🔒 **Security**: Alpine + Trivy scan passed\\n✅ **Status**: Deploy autorizado\\n\\n🛡️ Chuck Norris approved this secure deploy!",
+                        "description": "**Build #'"${BUILD_ID}"'** passou no Security Quality Gate!\\n\\n🌐 **App**: http://localhost:30001/docs\\n🔒 **Security**: Trivy scan aprovado\\n✅ **Status**: Deploy autorizado\\n\\n🛡️ Chuck Norris approved this secure deploy!",
                         "color": 65280,
                         "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
                     }]
@@ -186,7 +194,7 @@ Chuck Norris não permite HIGH vulnerabilities! 🥋🛡️
                 curl -H "Content-Type: application/json" -X POST -d '{
                     "embeds": [{
                         "title": "🚨 Deploy Failed/Blocked!",
-                        "description": "**Build #'"${BUILD_ID}"'** failed!\\n\\n❌ **Possível causa**: Security vulnerabilities or build failure\\n🔗 **Logs**: [Build #'"${BUILD_ID}"']('"${BUILD_URL}"')\\n\\n🛡️ Chuck Norris protects production!",
+                        "description": "**Build #'"${BUILD_ID}"'** failed!\\n\\n❌ **Possível causa**: Security vulnerabilities ou build failure\\n🔗 **Logs**: [Build #'"${BUILD_ID}"']('"${BUILD_URL}"')\\n\\n🛡️ Chuck Norris protects production!",
                         "color": 16711680,
                         "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
                     }]
