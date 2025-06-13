@@ -40,11 +40,18 @@ pipeline{
                     
                     echo "🔍 Iniciando Security Scan com Trivy..."
                     
-                    // Instalar Trivy se necessário
+                    // Criar diretório bin local se não existir
+                    sh 'mkdir -p $HOME/bin'
+                    
+                    // Instalar Trivy no diretório local
                     sh '''
-                    if ! command -v trivy &> /dev/null; then
+                    if ! command -v $HOME/bin/trivy &> /dev/null; then
                         echo "📦 Instalando Trivy..."
-                        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+                        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/bin
+                        export PATH=$HOME/bin:$PATH
+                    else
+                        echo "✅ Trivy já instalado"
+                        $HOME/bin/trivy --version
                     fi
                     '''
                     
@@ -56,6 +63,7 @@ pipeline{
                     // Executar scan e salvar relatório completo temporário
                     def scanResult = sh(
                         script: """
+                        export PATH=\$HOME/bin:\$PATH
                         trivy image --exit-code 1 --severity CRITICAL,HIGH \
                         --format table jamalshadowdev/fastapi-jenkins:${env.BUILD_ID} > trivy-temp-report.txt 2>&1
                         """,
@@ -155,16 +163,16 @@ Chuck Norris não permite HIGH vulnerabilities! 🥋🛡️
             echo "🌐 Aplicação disponível via Kind cluster"
 
             script {
-                sh '''
+                sh """
                 curl -H "Content-Type: application/json" -X POST -d '{
                     "embeds": [{
                         "title": "🚀 Secure Deploy Successful!",
                         "description": "**Build #${BUILD_ID}** passou no Security Quality Gate!\\n\\n🌐 **App**: http://localhost:30001/docs\\n🔒 **Security**: No Critical/High vulnerabilities\\n✅ **Status**: Deploy autorizado\\n\\n🛡️ Chuck Norris approved this secure deploy!",
                         "color": 65280,
-                        "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
+                        "timestamp": "\$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
                     }]
                 }' https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D
-                '''
+                """
             }
         }
         
@@ -174,16 +182,16 @@ Chuck Norris não permite HIGH vulnerabilities! 🥋🛡️
             echo '💡 Verifique: Docker build, DockerHub push ou Kubernetes deploy'
 
             script {
-                sh '''
+                sh """"
                 curl -H "Content-Type: application/json" -X POST -d '{
                     "embeds": [{
                         "title": "❌ Deploy Failed/Blocked",
                         "description": "**Build #${BUILD_ID}** failed!\\n\\n❌ **Possível causa**: Security vulnerabilities\\n🔗 **Logs**: [Build #${BUILD_ID}](${BUILD_URL})\\n\\n🛡️ Chuck Norris protects production!",
                         "color": 16711680,
-                        "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
+                        "timestamp": "\$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
                     }]
                 }' https://discordapp.com/api/webhooks/1382709811996659813/HfYapx2_TVy-up5Vj3uOMKLURqmE8hrweccpd1__VW1lcU_vsNP2EDqLOh8O4wCyO69D       
-                '''
+                """
             }
         }
     }
