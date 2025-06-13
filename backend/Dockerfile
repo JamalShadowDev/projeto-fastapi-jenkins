@@ -1,11 +1,8 @@
-FROM python:3.11-slim
+FROM python:3.11-alpine
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk update && apk upgrade && apk add --no-cache gcc musl-dev
 
-RUN groupadd -r appuser && useradd -r -g appuser appuser
+RUN addgroup -g 1000 appuser && adduser -D -s /bin/sh -u 1000 -G appuser appuser
 
 WORKDIR /app
 
