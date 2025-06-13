@@ -32,14 +32,6 @@ pipeline{
             }
         }
 
-        stage('Test Failure') {
-            steps {
-                script {
-                    sh 'exit 1' //Força "erro"
-                }
-             }
-        }
-
         stage('Security Scan - Trivy') {
             steps {
                 script {
