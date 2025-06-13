@@ -1,10 +1,15 @@
-FROM python:3.9-slim
+FROM python:3.11-alpine
 
-RUN groupadd -r appuser && useradd -r -g appuser appuser
+RUN apk update && apk upgrade && apk add --no-cache gcc musl-dev
+
+RUN addgroup -g 1000 appuser && adduser -D -s /bin/sh -u 1000 -G appuser appuser
 
 WORKDIR /app
 
 COPY requirements.txt .
+
+RUN pip install --no-cache-dir --upgrade pip setuptools>=78.1.1
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
