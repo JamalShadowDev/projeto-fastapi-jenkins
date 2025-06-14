@@ -235,18 +235,15 @@ uvicorn main:app --reload
 
 ---
 
-## 🔗 Links Úteis
+## 🔗 Links Importantes
 
 <div align="center">
 
 | Recurso | Link | Descrição |
 |---------|------|-----------|
-| 📖 **Setup Completo** | [docs/SETUP.md](docs/SETUP.md) | Reprodução passo a passo |
-| 🚀 **Quick Start** | [docs/QUICK-SETUP.md](docs/QUICK-SETUP.md) | Setup rápido |
-| 🔒 **Security Guide** | [docs/SECURITY.md](docs/SECURITY.md) | Trivy e quality gates |
-| 🛠️ **Troubleshooting** | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Soluções comuns |
-| 🌐 **Live App** | [localhost:30001/docs](http://localhost:30001/docs) | Aplicação rodando |
-| 🐳 **Docker Hub** | [jamalshadowdev/fastapi-jenkins](https://hub.docker.com/r/jamalshadowdev/fastapi-jenkins) | Imagens container |
+| 🌐 **Aplicação Live** | [localhost:30001/docs](http://localhost:30001/docs) | Swagger UI funcionando |
+| 🐳 **Docker Hub** | [jamalshadowdev/fastapi-jenkins](https://hub.docker.com/r/jamalshadowdev/fastapi-jenkins) | Registry de imagens |
+| 🔧 **Jenkins Pipeline** | [localhost:8080](http://localhost:8080) | Dashboard Jenkins |
 
 </div>
 
